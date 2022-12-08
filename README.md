@@ -30,3 +30,12 @@ ing
 
 * Repo owner or admin
 * Other community or team contact
+
+
+Procedure:-
+
+1. Install git and maven in /opt/
+2.clone repo in root /
+3.go to project repo folder wher u find pom.xml
+4 Execute this command "/opt/maven/bin/mvn package" where /opt/maven/bin/mvn this is the executable path of maven as we dont set it into system environment variable and package to make artifactory build from it.
+5.
