@@ -106,11 +106,12 @@ sonar.path.temp=/var/sonarqube/temp
 again go to root user from sonar user
 https://docs.sonarqube.org/latest/requirements/prerequisites-and-overview/
 
-vi /etc/systctl.conf
+vi /etc/sysctl.conf
 
 Paste thi
-sysctl -w vm.max_map_count=524288
-sysctl -w fs.file-max=131072
+vm.max_map_count = 524288
+fs.file-max = 131072
+
 
 *sysctl -p    :it takes changes applied*
 
