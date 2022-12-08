@@ -76,3 +76,79 @@ postgres=#  CREATE DATABASE sonar;                 //to store the analysis repor
 
 11. now grant all the privileges on db sonar to sonar user to store the analysis report
 postgres=#  GRANT ALL PRIVILEGES ON DATABASE sonar to sonar;
+
+\l to check access
+\q
+exit
+cd /opt
+##download sonarqube using binaries##
+wget ..................
+and install java-openjdk11
+
+It is mandatory and good practice to start sonar service using non root user
+so create a user "sonar"
+adduser sonar
+*change ownership of sonarqube directory
+chown -R sonar:sonar /opt/sonarqube
+su - sonar
+ cd /opt/sonarqube/
+cd conf 
+vi sonar.properties *
+
+
+sonar.jdbc.username=sonar
+sonar.jdbc.password=sonar
+sonar.jdbc.url=jbdc:postgresql://localhost/sonar
+sonar.path.data=/var/sonarqube/data
+sonar.path.temp=/var/sonarqube/temp
+
+
+again go to root user from sonar user
+https://docs.sonarqube.org/latest/requirements/prerequisites-and-overview/
+
+vi /etc/systctl.conf
+
+Paste thi
+sysctl -w vm.max_map_count=524288
+sysctl -w fs.file-max=131072
+
+*sysctl -p    :it takes changes applied*
+
+
+vi /etc/security/limits.conf
+
+If the user running SonarQube (sonarqube in this example) does not have permission to have at least 131072 open descriptors, you must insert this line in /etc/security/limits.d/99-sonarqube.conf (or /etc/security/limits.conf as you wish):
+
+sonar hard nofile 65535
+sonar soft nofile 65535
+:wq
+
+su - sonar
+cd /opt/sonar/bin
+./sonar.sh start
+ to check the status of sonar service        cd .. && cd logs
+ cat sonar.log
+ 
+ it not started cuz not apermission to create direcory in
+ /var/sonarqube/data
+ 
+ go to root user
+ exit
+ 
+ mkdir /var/sonarqube
+ chown -R sonar:sonar /var/sonarqube
+ su - sonar
+ cd /opt/sonar/bin/
+ ./sonar.sh start
+ cd .. && cd logs
+ cat sonar.log
+
+or check the status by going to su -sonar
+cd opt/sonar/bin
+./sonar.sh status 
+
+
+
+Chrome paste url of sonarqube :)
+
+
